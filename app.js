@@ -155,6 +155,8 @@ class App{
 	}
     
     setupXR(){
+        this.currentLight = 'day';
+
         this.renderer.xr.enabled = true;
 
         const btn = new VRButton( this.renderer );
@@ -170,6 +172,21 @@ class App{
         }
 
         function onSelectEnd( event ) {
+            if (event.inputSource && event.inputSource.handedness === 'right') {
+            if (self.currentLight === 'day') {
+            self.scene.background = new THREE.Color(0x000011);
+            self.scene.environment = null;
+            self.currentLight = 'night';
+        } 
+        
+            else 
+        
+        {
+            self.setEnvironment();
+            self.currentLight = 'day';
+        }
+}
+
         
             this.userData.selectPressed = false;
         
